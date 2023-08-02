@@ -28,6 +28,9 @@ export class OrderControllerBase {
   constructor(protected readonly service: OrderService) {}
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Order })
+  @swagger.ApiBody({
+    type: OrderCreateInput,
+  })
   async create(@common.Body() data: OrderCreateInput): Promise<Order> {
     return await this.service.create({
       data: {
@@ -144,6 +147,9 @@ export class OrderControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Order })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiBody({
+    type: OrderUpdateInput,
+  })
   async update(
     @common.Param() params: OrderWhereUniqueInput,
     @common.Body() data: OrderUpdateInput

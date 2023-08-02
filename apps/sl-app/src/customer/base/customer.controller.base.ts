@@ -31,6 +31,9 @@ export class CustomerControllerBase {
   constructor(protected readonly service: CustomerService) {}
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Customer })
+  @swagger.ApiBody({
+    type: CustomerCreateInput,
+  })
   async create(@common.Body() data: CustomerCreateInput): Promise<Customer> {
     return await this.service.create({
       data: {
@@ -120,6 +123,9 @@ export class CustomerControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Customer })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiBody({
+    type: CustomerUpdateInput,
+  })
   async update(
     @common.Param() params: CustomerWhereUniqueInput,
     @common.Body() data: CustomerUpdateInput
