@@ -31,6 +31,9 @@ export class AddressControllerBase {
   constructor(protected readonly service: AddressService) {}
   @common.Post()
   @swagger.ApiCreatedResponse({ type: Address })
+  @swagger.ApiBody({
+    type: AddressCreateInput,
+  })
   async create(@common.Body() data: AddressCreateInput): Promise<Address> {
     return await this.service.create({
       data: data,
@@ -97,6 +100,9 @@ export class AddressControllerBase {
   @common.Patch("/:id")
   @swagger.ApiOkResponse({ type: Address })
   @swagger.ApiNotFoundResponse({ type: errors.NotFoundException })
+  @swagger.ApiBody({
+    type: AddressUpdateInput,
+  })
   async update(
     @common.Param() params: AddressWhereUniqueInput,
     @common.Body() data: AddressUpdateInput
